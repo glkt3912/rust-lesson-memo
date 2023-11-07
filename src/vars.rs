@@ -60,4 +60,44 @@ pub fn run() {
     let a1 = [1, 2, 3, 4, 5];
     let a2 = [0; 10]; // 0が10含まれた配列を生成
     println!("{:?} {:?} {} {}", a1, a2, a1[2], a1[3]);
+
+    // 文字列スライス構造
+    let s1 = "helloこんにちは挨拶"; //26bytes
+    let s2 = "hello"; // 5bytes
+    println!("Stack address of s1 is: {:p}", &s1);
+    println!("Stack address of s2 is: {:p}", &s2);
+    // 静的値領域の取得(先頭アドレス pointer)
+    println!("Static memory address of s1 is: {:?}", s1.as_ptr());
+    println!("Static memory address of s2 is: {:?}", s2.as_ptr());
+    // 実データのバイト数
+    println!("Len of s1 is: {}", s1.len());
+    println!("Len of s2 is: {}", s2.len());
+
+    // 動的メモリ確保　String
+    let mut s1 = String::from("hello");
+    let mut s2 = String::from("helloworld");
+    println!("Stack address of s1 is: {:p}", &s1);
+    println!("Stack address of s2 is: {:p}", &s2);
+    // ヒープ内のメモリ容量
+    println!("Heap memory address of s1 is: {:?}", s1.as_ptr());
+    println!("Heap memory address of s2 is: {:?}", s2.as_ptr());
+    println!("Len of s1 is: {}", s1.len());
+    println!("Len of s2 is: {}", s2.len());
+    println!("Capacity of s1 is: {}", s1.capacity());
+    println!("Capacity of s2 is: {}", s2.capacity());
+    s1.push_str("_new1");
+    s2.push_str("_new2");
+    println!("{} {}", s1, s2);
+
+    // memo
+    // 文字列スライス型: 参照
+    // String型: 所有 ※データ所有はメモリ解放（drop）する責任あり
+    // 所有者はデータに対して必ず一人。所有者がメモリを解放する（解放はRustによって自動的に行われる）
+    // 所有権者 = 変数名
+    // 文字列スライスは例外的に所有ではなく、参照
+    // 文字列リテラルから文字列スライスを作成の場合は、文字列データは静的領域にあるのでそもそも解放の必要がない
+    // String型から文字列スライスを作成した場合はs1(String型)から移行しない
+
+    // 参照と借用
+    // 借用: 所有権を移動させず、参照する権利だけを貸し出す
 }
